@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/docsify/4.13.1/themes/dark.min.css"
+      integrity="sha512-OoTe2ayZ3ANv7+Jrh8XirxYc/lx6LZCLBi9qzuBNLSalW4jrRPGWHlg2AJcg4cP/jVNPOF4Shx5zRjVFDopeug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="#/">Home</a>
+      <a href="https://hackintosh.club">Hackintosh.Club</a>
+    </nav>
+    <div id="app">Please wait... :100:</div>
+    <script>
+      window.H8H = {
+        repo: "hackintosh-club",
+        github: "https://github.com/hackintosh-club",
+        cdn: "https://cdn.jsdelivr.net/gh/",
+      };
+      window.$docsify = {
+        // logo: "http://picsum.photos/240/80.webp",
+        name: "Hackintosh EFI",
+        onlyCover: true,
+        coverpage: true,
+        loadSidebar: true,
+        autoHeader: true,
+        nativeEmoji: true,
+        repo: H8H.github,
+        // routerMode: "history",
+        // themeColor: "#3F51B5",
+        alias: {
+          "/r/(.*)": H8H.cdn + H8H.repo + "/$1/README.md", // supports regexp
+          "/3rd/(.*)": H8H.cdn + "/$1/README.md", // supports regexp
+        },
+
+        plugins: [
+          function (hook, vm) {
+            hook.beforeEach(function (markdown) {
+              console.log("MD:>", markdown);
+
+              if (vm.route.path.includes("/r")) {
+                vm.route.path = vm.route.path.replace("/r", "/" + H8H.repo);
+              }
+
+              if (vm.route.path.includes("/3rd")) {
+                vm.route.path = vm.route.path.replace("/3rd", "");
+              }
+
+              const baseURL = H8H.cdn + vm.route.path + "/";
+
+              // Replace image src attributes
+              markdown = markdown.replace(
+                /!\[.*?\]\((?!http)(.*?)\)/g,
+                (match, p1) => {
+                  return `![${match
+                    .match(/\!\[.*?\]/)[0]
+                    .slice(2, -1)}](${baseURL}${p1})`;
+                }
+              );
+
+              // 删除包含 README 并以 .md) 结尾的行
+              markdown = markdown.replace(
+                /###*\s*\[.*?\]\(README.*?\.md\)\s*$/gm,
+                ""
+              );
+
+              console.log("MD:<", markdown);
+
+              return markdown;
+            });
+
+            // hook.afterEach(function (html) {
+            //   return html;
+            // });
+          },
+        ],
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/docsify/4.13.1/docsify.min.js"
+      integrity="sha512-84+ZaJNTIDfzIpGj5whcwtNJwZhYW0PfowJCCVsCWxB9x1cLfpx960AuuP85vZAknEp5+B3/Ukg1x+kv+sP7ug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>
