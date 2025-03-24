@@ -1,9 +1,11 @@
+<!-- _coverpage.md -->
+
 # Hackintosh OpenCore EFI
 
-Find your free OpenCore EFIs here!
+> Find your free OpenCore EFI here!
 
 [Github](https://github.com/hackintosh-club)
-[EFI](README.md)
+[OpenCore EFI](README.md)
 
 <!-- background image -->
 
@@ -11,4 +13,4 @@ Find your free OpenCore EFIs here!
 
 <!-- background color -->
 
-![color](#333333)
+![color](#33313B)

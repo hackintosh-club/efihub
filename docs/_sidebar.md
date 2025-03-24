@@ -106,6 +106,4 @@
 
 - **NUC**
 
-  - [NUC 10](/r/intel-nuc10)
-
-- <small>&copy;HACKINTOSH.CLUB</small>
+  - [NUC 10](/r/intel-nuc10 "Intel NUC10 EFI")
