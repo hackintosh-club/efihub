@@ -4,10 +4,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta charset="UTF-8" />
+    <meta property="og:title" content="" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/docsify/lib/themes/dark.min.css"
     />
+
+    <!-- giscus -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify-giscus/dist/giscus.min.css"
+    />
+    <style>
+      .giscus {
+        width: 100% !important;
+        padding: 5px;
+        min-height: 200px;
+      }
+      .giscus iframe {
+        width: 100% !important;
+        border: 0;
+        min-height: 200px;
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -16,9 +35,7 @@
     </nav>
     <div id="app">Please wait...</div>
     <script>
-      window.H8H = {
-        cdn: "https://cdn.jsdelivr.net/gh/hackintosh-club",
-      };
+      const CDN = "https://cdn.jsdelivr.net/gh/hackintosh-club";
       window.$docsify = {
         repo: "https://github.com/hackintosh-club",
         name: "<strong>Hackintosh EFI</strong>",
@@ -27,75 +44,141 @@
         loadSidebar: true,
         autoHeader: true,
         nativeEmoji: true,
-        routerMode: "history",
+        // routerMode: "history",
         themeColor: "#F36322",
         alias: {
           "/r/_sidebar.md": "/_sidebar.md",
-          "/r/(.*)": H8H.cdn + "/$1/README.md",
+          "/r/(.*)": CDN + "/$1/README.md",
+        },
+
+        // plugins
+        // baiduTongjiID
+        // baiduTongjiID: "xxxxxxx",
+        // giscus
+        giscus: {
+          repo: "hackintosh-club/efihub.comment",
+          repoId: "R_kgDOLu2oNQ",
+          category: "Comment",
+          categoryId: "DIC_kwDOLu2oNc4CeuI7",
+          mapping: "og:title",
+          reactionsEnabled: "1",
+          strict: "1",
+          emitMetadata: "0",
+          inputPosition: "top",
+          theme: "transparent_dark",
+          lang: "en",
+          loading: "lazy",
         },
       };
 
       (function () {
-        var h8hPlugin = function (hook, vm) {
-          // Invoked one time when docsify script is initialized
-          hook.init(function () {
-            console.log("hook.init");
-          });
+        const xid = function (vm) {
+          const _xid = vm.route.path.replace("/r/", "").toLowerCase();
+          console.log("xid", _xid);
+          return _xid;
+        };
+        const allowRoute = function (vm) {
+          return vm.route.path.startsWith("/r");
+        };
+        const baseURL = function (vm) {
+          const _url = CDN + vm.route.path.replace("/r", "") + "/";
+          console.log("baseURL", _url);
+          return _url;
+        };
 
-          // Invoked one time when the docsify instance has mounted on the DOM
-          hook.mounted(function () {
-            console.log("hook.mounted");
-          });
-
-          // Invoked on each page load before new markdown is transformed to HTML.
-          // Supports asynchronous tasks (see beforeEach documentation for details).
+        var contentPlugin = function (hook, vm) {
           hook.beforeEach(function (markdown) {
             console.log("hook.beforeEach");
-            if (!vm.route.path.startsWith("/r")) {
+            if (!allowRoute(vm)) {
               return markdown;
             }
-            const baseURL = H8H.cdn + vm.route.path.replace("/r", "") + "/";
-            console.log("baseURL", baseURL);
+
             // Replace image src attributes
             markdown = markdown.replace(
               /!\[.*?\]\((?!http)(.*?)\)/g,
               (match, p1) => {
                 return `![${match
                   .match(/\!\[.*?\]/)[0]
-                  .slice(2, -1)}](${baseURL}${p1})`;
+                  .slice(2, -1)}](${baseURL(vm)}${p1})`;
               }
             );
+
             // delete README
             markdown = markdown.replace(
               /(#+)\s*\[.*?\]\(README.*?\.md\)\s*$/gm,
               ""
             );
+
+            return markdown;
+          });
+        };
+
+        var baiduTongjiPlugin = function (hook, vm) {
+          hook.mounted(function () {
+            if (!vm.config.baiduTongjiID) {
+              console.warn("baiduTongjiID not config");
+              return;
+            }
+            const id = vm.config.baiduTongjiID;
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?" + id;
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+            console.info(id);
+            console.info("baiduTongjiPlugin init success!");
+          });
+        };
+
+        var giscusPlugin = function (hook, vm) {
+          hook.beforeEach(function (markdown) {
+            console.log("hook.beforeEach");
+            if (!allowRoute(vm)) {
+              return markdown;
+            }
+
+            document
+              .querySelector("meta[property='og:title']")
+              .setAttribute("content", xid(vm));
             return markdown;
           });
 
-          // Invoked on each page load after new markdown has been transformed to HTML.
-          // Supports asynchronous tasks (see afterEach documentation for details).
           hook.afterEach(function (html) {
             console.log("hook.afterEach");
-            return html;
-          });
+            if (!vm.route.path.startsWith("/r")) {
+              return html;
+            }
 
-          // Invoked on each page load after new HTML has been appended to the DOM
-          hook.doneEach(function () {
-            console.log("hook.doneEach");
-          });
+            document.querySelector("#giscus") &&
+              document.querySelector("#giscus").remove();
 
-          // Invoked one time after rendering the initial page
-          hook.ready(function () {
-            console.log("hook.ready");
+            var giscus = document.createElement("script");
+            giscus.id = "giscus";
+            giscus.src = "https://giscus.app/client.js";
+            giscus.crossorigin = "anonymous";
+            giscus.async = true;
+            for (const key in vm.config.giscus) {
+              giscus.dataset[key] = vm.config.giscus[key];
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(giscus, s);
+            console.info("render giscus done");
+            return html + "<div class='giscus'></div>";
           });
         };
 
         // Add plugin to docsify's plugin array
         $docsify = $docsify || {};
-        $docsify.plugins = [].concat(h8hPlugin, $docsify.plugins || []);
+        $docsify.plugins = [].concat(
+          contentPlugin,
+          giscusPlugin,
+          baiduTongjiPlugin,
+          $docsify.plugins || []
+        );
       })();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+
+    <!-- baiduTongJi -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-baidu-tj/dist/docsify-baidu-tj.min.js"></script> -->
   </body>
 </html>

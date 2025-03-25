@@ -13,4 +13,4 @@
 
 <!-- background color -->
 
-![color](#33313B)
+<!-- ![color](#33313B) -->
