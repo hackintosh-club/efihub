@@ -105,6 +105,18 @@
           return _url;
         };
 
+        var redirctPlugin = function (hook, vm) {
+          hook.mounted(function () {
+            const uri = new URL(window.location.href);
+            console.info("redirctPlugin", uri);
+            if (uri.searchParams.has("giscus")) {
+              setTimeout(() => {
+                window.location.href = "/";
+              }, 500);
+            }
+          });
+        };
+
         var contentPlugin = function (hook, vm) {
           hook.beforeEach(function (markdown) {
             // console.info("hook.beforeEach");
@@ -209,6 +221,7 @@
         // Add plugin to docsify's plugin array
         $docsify = $docsify || {};
         $docsify.plugins = [].concat(
+          redirctPlugin,
           contentPlugin,
           giscusPlugin,
           baiduTongjiPlugin,
