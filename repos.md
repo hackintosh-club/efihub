@@ -1,2 +1,0 @@
-# Hackintosh Club Repositories
-

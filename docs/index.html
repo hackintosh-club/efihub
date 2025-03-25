@@ -58,7 +58,7 @@
         repo: "https://github.com/hackintosh-club",
         name: "<strong>EFIHub</strong>",
         alias: {
-          "/r/_sidebar.md": "/_sidebar.md",
+          "/(.*)/_sidebar.md": "/_sidebar.md",
           "/r/(.*)": CDN + "/$1/README.md",
         },
         // routerMode: "history",
@@ -112,8 +112,6 @@
               return markdown;
             }
 
-            console.info(markdown);
-
             // Replace image src attributes
             markdown = markdown.replace(
               /!\[.*?\]\((?!http)(.*?)\)/g,
@@ -129,8 +127,6 @@
               /(#+)\s*\[.*?\]\(README.*?\.md\)\s*$/gm,
               ""
             );
-
-            console.warn(markdown);
 
             return markdown;
           });
@@ -223,5 +219,6 @@
         );
       })();
     </script>
+    <script src="/_vendor/zoom-image.min.js"></script>
   </body>
 </html>
