@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="800px" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>EFI</title>
+    <g id="EFI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" transform="translate(400, 400) rotate(45) translate(-400, -400)translate(175, 175)">
+            <path d="M50,250 C50,360.45695 139.54305,450 250,450 C360.45695,450 450,360.45695 450,250" id="Path" stroke="#2786D7" stroke-width="100" stroke-linecap="round"></path>
+            <path d="M50,0 C77.6142375,2.03277422e-15 100,22.3857625 100,50 L100,250 L100,250 L0,250 L7.10542736e-15,50 C3.7236586e-15,22.3857625 22.3857625,1.21780805e-14 50,7.10542736e-15 Z" id="Rectangle" fill="#2786D7"></path>
+            <rect id="中间" fill="#FEA33C" x="200" y="90" width="100" height="200" rx="50"></rect>
+        </g>
+    </g>
+</svg>

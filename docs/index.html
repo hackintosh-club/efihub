@@ -3,18 +3,35 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta charset="UTF-8" />
-    <meta property="og:title" content="" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon shortcut" href="/_media/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/_media/favicon.svg" type="image/svg+xml" />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/docsify/lib/themes/dark.min.css"
+      rel="icon"
+      href="/_media/favicon-dark.svg"
+      type="image/svg+xml"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      href="/_media/favicon-16x16.png"
+      type="image/png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      href="/_media/favicon-32x32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/_media/apple-touch-icon.png"
+      sizes="180x180"
     />
 
-    <!-- giscus -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/docsify-giscus/dist/giscus.min.css"
-    />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/_vendor/dark.min.css" />
     <style>
       .giscus {
         width: 100% !important;
@@ -37,23 +54,23 @@
     <script>
       const CDN = "https://cdn.jsdelivr.net/gh/hackintosh-club";
       window.$docsify = {
+        cdn: CDN,
         repo: "https://github.com/hackintosh-club",
-        name: "<strong>Hackintosh EFI</strong>",
-        onlyCover: true,
-        coverpage: true,
-        loadSidebar: true,
-        autoHeader: true,
-        nativeEmoji: true,
-        // routerMode: "history",
-        themeColor: "#F36322",
+        name: "<strong>EFIHub</strong>",
         alias: {
           "/r/_sidebar.md": "/_sidebar.md",
           "/r/(.*)": CDN + "/$1/README.md",
         },
+        // routerMode: "history",
+        themeColor: "#F36322",
+        onlyCover: true,
+        coverpage: true,
+        loadSidebar: true,
+        autoHeader: true,
+        nativeEmoji: false,
 
-        // plugins
         // baiduTongjiID
-        // baiduTongjiID: "xxxxxxx",
+        baiduTongjiID: "a693e3c9fd4518f70373708ae51ceb65",
         // giscus
         giscus: {
           repo: "hackintosh-club/efihub.comment",
@@ -70,28 +87,32 @@
           loading: "lazy",
         },
       };
-
+    </script>
+    <script src="/_vendor/docsify.min.js"></script>
+    <script>
       (function () {
         const xid = function (vm) {
           const _xid = vm.route.path.replace("/r/", "").toLowerCase();
-          console.log("xid", _xid);
+          console.info("xid", _xid);
           return _xid;
         };
         const allowRoute = function (vm) {
           return vm.route.path.startsWith("/r");
         };
         const baseURL = function (vm) {
-          const _url = CDN + vm.route.path.replace("/r", "") + "/";
-          console.log("baseURL", _url);
+          const _url = vm.config.cdn + vm.route.path.replace("/r", "") + "/";
+          console.info("baseURL", _url);
           return _url;
         };
 
         var contentPlugin = function (hook, vm) {
           hook.beforeEach(function (markdown) {
-            console.log("hook.beforeEach");
+            console.info("hook.beforeEach");
             if (!allowRoute(vm)) {
               return markdown;
             }
+
+            console.info(markdown);
 
             // Replace image src attributes
             markdown = markdown.replace(
@@ -109,6 +130,8 @@
               ""
             );
 
+            console.warn(markdown);
+
             return markdown;
           });
         };
@@ -116,7 +139,6 @@
         var baiduTongjiPlugin = function (hook, vm) {
           hook.mounted(function () {
             if (!vm.config.baiduTongjiID) {
-              console.warn("baiduTongjiID not config");
               return;
             }
             const id = vm.config.baiduTongjiID;
@@ -124,44 +146,69 @@
             hm.src = "https://hm.baidu.com/hm.js?" + id;
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
-            console.info(id);
-            console.info("baiduTongjiPlugin init success!");
+            console.info("baiduTongji loaded");
           });
         };
 
         var giscusPlugin = function (hook, vm) {
+          const meta = {
+            ogtitle: { property: "og:title" },
+            backlink: { name: "giscus:backlink" },
+          };
+
+          hook.mounted(function () {
+            console.info("hook.mounted");
+            var head = document.getElementsByTagName("head")[0];
+            for (const [id, attr] of Object.entries(meta)) {
+              var el = document.createElement("meta");
+              el.id = id;
+              for (const [k, v] of Object.entries(attr)) {
+                el.setAttribute(k, v);
+              }
+              head.appendChild(el);
+            }
+          });
+
           hook.beforeEach(function (markdown) {
-            console.log("hook.beforeEach");
+            console.info("hook.beforeEach");
             if (!allowRoute(vm)) {
               return markdown;
             }
 
-            document
-              .querySelector("meta[property='og:title']")
-              .setAttribute("content", xid(vm));
+            if (document.querySelector("#ogtitle")) {
+              document
+                .querySelector("#ogtitle")
+                .setAttribute("content", xid(vm));
+            }
+            if (document.querySelector("#backlink")) {
+              document
+                .querySelector("#backlink")
+                .setAttribute("content", window.location.href);
+            }
+
             return markdown;
           });
 
           hook.afterEach(function (html) {
-            console.log("hook.afterEach");
+            console.info("hook.afterEach");
             if (!vm.route.path.startsWith("/r")) {
               return html;
             }
 
-            document.querySelector("#giscus") &&
+            if (document.querySelector("#giscus")) {
               document.querySelector("#giscus").remove();
+            }
 
             var giscus = document.createElement("script");
             giscus.id = "giscus";
             giscus.src = "https://giscus.app/client.js";
             giscus.crossorigin = "anonymous";
             giscus.async = true;
-            for (const key in vm.config.giscus) {
-              giscus.dataset[key] = vm.config.giscus[key];
+            for (const [k, v] of Object.entries(vm.config.giscus)) {
+              giscus.dataset[k] = v;
             }
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(giscus, s);
-            console.info("render giscus done");
             return html + "<div class='giscus'></div>";
           });
         };
@@ -176,9 +223,5 @@
         );
       })();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-
-    <!-- baiduTongJi -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-baidu-tj/dist/docsify-baidu-tj.min.js"></script> -->
   </body>
 </html>
