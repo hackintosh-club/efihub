@@ -52,10 +52,11 @@
     </nav>
     <div id="app">Please wait...</div>
     <script>
-      const CDN = "https://cdn.jsdelivr.net/gh/hackintosh-club";
+      const ORG = "hackintosh-club";
+      const CDN = "https://cdn.jsdelivr.net/gh/" + ORG;
       window.$docsify = {
         cdn: CDN,
-        repo: "https://github.com/hackintosh-club",
+        repo: "https://github.com/" + ORG,
         name: "<strong>EFIHub</strong>",
         alias: {
           "/r/_sidebar.md": "/_sidebar.md",
@@ -73,7 +74,7 @@
         baiduTongjiID: "a693e3c9fd4518f70373708ae51ceb65",
         // giscus
         giscus: {
-          repo: "hackintosh-club/efihub.comment",
+          repo: ORG + "/efihub.comment",
           repoId: "R_kgDOLu2oNQ",
           category: "Comment",
           categoryId: "DIC_kwDOLu2oNc4CeuI7",
@@ -91,30 +92,28 @@
     <script src="/_vendor/docsify.min.js"></script>
     <script>
       (function () {
-        const xid = function (vm) {
-          const _xid = vm.route.path.replace("/r/", "").toLowerCase();
-          // console.info("xid", _xid);
-          return _xid;
+        var repoID = function (vm) {
+          return vm.route.path.replace("/r/", "");
         };
-        const allowRoute = function (vm) {
+        var repoPath = function (vm) {
+          return ORG + "/" + repoID(vm);
+        };
+        var allowRoute = function (vm) {
           return vm.route.path.startsWith("/r");
         };
-        const baseURL = function (vm) {
-          const _url = vm.config.cdn + vm.route.path.replace("/r", "") + "/";
-          // console.info("baseURL", _url);
-          return _url;
+        var repoURL = function (vm) {
+          return vm.config.repo + vm.route.path.replace("/r", "");
         };
-
-        var redirctPlugin = function (hook, vm) {
-          hook.mounted(function () {
-            const uri = new URL(window.location.href);
-            console.info("redirctPlugin", uri);
-            if (uri.searchParams.has("giscus")) {
-              setTimeout(() => {
-                window.location.href = "/";
-              }, 500);
-            }
-          });
+        var cdnURL = function (vm) {
+          return vm.config.cdn + vm.route.path.replace("/r", "") + "/";
+        };
+        var backlink = function (vm) {
+          return new URL(window.location).origin + vm.route.path;
+        };
+        var shields = function (item, label, logo) {
+          label = label ? "&label=" + label : "";
+          logo = logo ? "&logo=" + logo : "";
+          return `https://img.shields.io/${item}?cacheSeconds=3600&style=flat-square${label}${logo}`;
         };
 
         var contentPlugin = function (hook, vm) {
@@ -124,23 +123,67 @@
               return markdown;
             }
 
-            // Replace image src attributes
+            const _cdnURL = cdnURL(vm);
+            // replace markdown img src attributes
             markdown = markdown.replace(
               /!\[.*?\]\((?!http)(.*?)\)/g,
               (match, p1) => {
                 return `![${match
                   .match(/\!\[.*?\]/)[0]
-                  .slice(2, -1)}](${baseURL(vm)}${p1})`;
+                  .slice(2, -1)}](${_cdnURL}${p1})`;
               }
             );
 
-            // delete README
+            // replace html img src attributes
+            markdown = markdown.replace(
+              /<img\s+([^>]*?)src=["'](?!http)([^"']+?)["']([^>]*)>/gi,
+              (match, beforeSrc, src, afterSrc) => {
+                return `<img ${beforeSrc}src="${_cdnURL}${src}"${afterSrc}>`;
+              }
+            );
+
+            // remove README
             markdown = markdown.replace(
               /(#+)\s*\[.*?\]\(README.*?\.md\)\s*$/gm,
               ""
             );
 
             return markdown;
+          });
+
+          hook.doneEach(function () {
+            // console.info("hook.doneEach");
+            if (!allowRoute(vm)) {
+              return;
+            }
+
+            console.info("vm", vm);
+            const _repoURL = repoURL(vm);
+            const _repoPath = repoPath(vm);
+            const _github = shields("badge/Github-gray", "", "github");
+            const _release = shields(
+              `github/v/release/${_repoPath}`,
+              "Latest EFI",
+              "apple"
+            );
+            const _stars = shields(
+              `github/stars/${_repoPath}`,
+              "stars",
+              "data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzYgNTEyIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMzE2LjkgMThDMzExLjYgNyAzMDAuNCAwIDI4OC4xIDBzLTIzLjQgNy0yOC44IDE4TDE5NSAxNTAuMyA1MS40IDE3MS41Yy0xMiAxLjgtMjIgMTAuMi0yNS43IDIxLjdzLS43IDI0LjIgNy45IDMyLjdMMTM3LjggMzI5IDExMy4yIDQ3NC43Yy0yIDEyIDMgMjQuMiAxMi45IDMxLjNzMjMgOCAzMy44IDIuM2wxMjguMy02OC41IDEyOC4zIDY4LjVjMTAuOCA1LjcgMjMuOSA0LjkgMzMuOC0yLjNzMTQuOS0xOS4zIDEyLjktMzEuM0w0MzguNSAzMjkgNTQyLjcgMjI1LjljOC42LTguNSAxMS43LTIxLjIgNy45LTMyLjdzLTEzLjctMTkuOS0yNS43LTIxLjdMMzgxLjIgMTUwLjMgMzE2LjkgMTh6Ii8+PC9zdmc+"
+            );
+            const _downloads = shields(
+              `github/downloads/${_repoPath}/total`,
+              "downloads",
+              "data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjg4IDMyYzAtMTcuNy0xNC4zLTMyLTMyLTMycy0zMiAxNC4zLTMyIDMybDAgMjQyLjctNzMuNC03My40Yy0xMi41LTEyLjUtMzIuOC0xMi41LTQ1LjMgMHMtMTIuNSAzMi44IDAgNDUuM2wxMjggMTI4YzEyLjUgMTIuNSAzMi44IDEyLjUgNDUuMyAwbDEyOC0xMjhjMTIuNS0xMi41IDEyLjUtMzIuOCAwLTQ1LjNzLTMyLjgtMTIuNS00NS4zIDBMMjg4IDI3NC43IDI4OCAzMnpNNjQgMzUyYy0zNS4zIDAtNjQgMjguNy02NCA2NGwwIDMyYzAgMzUuMyAyOC43IDY0IDY0IDY0bDM4NCAwYzM1LjMgMCA2NC0yOC43IDY0LTY0bDAtMzJjMC0zNS4zLTI4LjctNjQtNjQtNjRsLTEwMS41IDAtNDUuMyA0NS4zYy0yNSAyNS02NS41IDI1LTkwLjUgMEwxNjUuNSAzNTIgNjQgMzUyem0zNjggNTZhMjQgMjQgMCAxIDEgMCA0OCAyNCAyNCAwIDEgMSAwLTQ4eiIvPjwvc3ZnPg=="
+            );
+            var main = document.querySelector("#main");
+            var div = document.createElement("div");
+            div.innerHTML =
+              `<a href="${_repoURL}" title="${_repoPath}" target="_blank"><img src="${_github}"></a> ` +
+              `<a href="${_repoURL}/releases" title="Latest EFI Release" target="_blank"><img src="${_release}"></a> ` +
+              `<span><img title="downloads" src="${_downloads}"></span> ` +
+              `<span><img title="stars" src="${_stars}"></span> `;
+            main.insertBefore(div, main.childNodes[1]);
           });
         };
 
@@ -150,9 +193,9 @@
             if (!vm.config.baiduTongjiID) {
               return;
             }
-            const id = vm.config.baiduTongjiID;
+
             var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?" + id;
+            hm.src = "https://hm.baidu.com/hm.js?" + vm.config.baiduTongjiID;
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
           });
@@ -183,21 +226,15 @@
               return html;
             }
 
-            const _xid = xid(vm);
             if (document.querySelector("#ogtitle")) {
-              document.querySelector("#ogtitle").setAttribute("content", _xid);
+              document
+                .querySelector("#ogtitle")
+                .setAttribute("content", repoID(vm).toLowerCase());
             }
             if (document.querySelector("#backlink")) {
               document
                 .querySelector("#backlink")
-                .setAttribute(
-                  "content",
-                  window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    "/r/" +
-                    _xid
-                );
+                .setAttribute("content", backlink(vm));
             }
 
             if (document.querySelector("#giscus")) {
@@ -221,7 +258,6 @@
         // Add plugin to docsify's plugin array
         $docsify = $docsify || {};
         $docsify.plugins = [].concat(
-          // redirctPlugin,
           contentPlugin,
           giscusPlugin,
           baiduTongjiPlugin,
