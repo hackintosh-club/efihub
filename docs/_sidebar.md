@@ -1,3 +1,5 @@
+<!-- _sidebar.md -->
+
 - ASRock
 
   - [ASRock-DeskMini-310](/r/ASRock-DeskMini-310)
