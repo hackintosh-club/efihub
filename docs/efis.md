@@ -2,7 +2,7 @@
 
 > Hackintosh OpenCore EFI by Brands
 
-![ASRock](/_media/brands/asrock.jpg ":size=180")
+![ASRock](_media/brands/asrock.jpg ":size=180")
 
 - [ASRock-DeskMini-310](/r/ASRock-DeskMini-310)
 - [ASROCK-H410M-ITX](/r/ASROCK-H410M-ITX-OpenCore)
@@ -10,7 +10,7 @@
 - [ASRock-DeskMini-Z370M-STX-MXM](/r/ASRock-DeskMini-Z370M-STX-MXM-OpenCore)
 - [Asrock-H670M-ITX](/r/Asrock-H670M-ITX-OpenCore)
 
-![ASUS](/_media/brands/asus.jpg ":size=180")
+![ASUS](_media/brands/asus.jpg ":size=180")
 
 - [ASUS-P8Z77-V-PRO](/r/ASUS-P8Z77-V-PRO-OpenCore)
 - [ASUS-Z170i-Pro-Gaming](/r/ASUS-Z170i-Pro-Gaming-OpenCore)
@@ -24,25 +24,25 @@
 - [ROG-MAXIMUS-XII-HERO-WiFi](/r/ROG-MAXIMUS-XII-HERO-WiFi-OpenCore)
 - [TUF-B760M-Plus](/r/TUF-B760M-Plus-OpenCore)
 
-![BIOSTAR](/_media/brands/biostar.jpg ":size=180")
+![BIOSTAR](_media/brands/biostar.jpg ":size=180")
 
 - [BIOSTAR-B660GTN](/r/BIOSTAR-B660GTN-OpenCore)
 - [Hackintosh-BIOSTAR-B660T-Silver-EFI](/r/Hackintosh-BIOSTAR-B660T-Silver-EFI)
 
-![DELL](/_media/brands/dell.jpg ":size=180")
+![DELL](_media/brands/dell.jpg ":size=180")
 
 - [DELL-3090MFF](/r/DELL-3090MFF-OpenCore)
 - [dell-optiplex-3080-mff](/r/dell-optiplex-3080-mff)
 - [Dell-Vostro-3250](/r/Dell-Vostro-3250-OpenCore)
 - [DELL-7460](/r/DELL-7460-OpenCore)
 
-![ERYING](/_media/brands/erying.jpg ":size=180")
+![ERYING](_media/brands/erying.jpg ":size=180")
 
 - [ERYING-B760I-ARGB](/r/ERYING-B760I-ARGB-OpenCore)
 - [ERYING-POLESTAR-H770-MATX](/r/ERYING-POLESTAR-H770-MATX-OpenCore)
 - [ERYING-B760I](/r/ERYING-B760I-OpenCore)
 
-![GIGABYTE](/_media/brands/gigabyte.jpg ":size=180")
+![GIGABYTE](_media/brands/gigabyte.jpg ":size=180")
 
 - [GIGABYTE-H110M-DS2V](/r/GIGABYTE-H110M-DS2V-OpenCore)
 - [Gigabyte-Z790M-Aorus-Elite-AX](/r/Gigabyte-Z790M-Aorus-Elite-AX-OpenCore)
@@ -52,7 +52,7 @@
 - [GB-BRi7H-8550](/r/GB-BRi7H-8550-OpenCore)
 - [GA-H170MSTX-DATTO-O3](/r/GA-H170MSTX-DATTO-O3)
 
-![HP](/_media/brands/hp.jpg ":size=180")
+![HP](_media/brands/hp.jpg ":size=180")
 
 - [HP-ProDesk-400-G3-DM](/r/HP-ProDesk-400-G3-DM-OpenCore)
 - [HP-Pavilion-Desktop-590-8700](/r/HP-Pavilion-Desktop-590-8700)
@@ -60,39 +60,37 @@
 - [HP-EliteDesk-800-G5-DM](/r/HP-EliteDesk-800-G5-DM-OpenCore)
 - [HP-EliteDesk-800-G1-Ultra-slim-Desktop](/r/HP-EliteDesk-800-G1-Ultra-slim-Desktop-OpenCore)
 
-![Intel](/_media/brands/intel.jpg ":size=180")
+![Intel](_media/brands/intel.jpg ":size=180")
 
 - [intel-nuc12-extreme](/r/intel-nuc12-extreme)
 - [intel-nuc10](/r/intel-nuc10)
 
-![JGINYUE](/_media/brands/jginyue.jpg ":size=180")
+![JGINYUE](_media/brands/jginyue.jpg ":size=180")
 
 - [JINGYUE-X99M-PLUS-D4](/r/JINGYUE-X99M-PLUS-D4-OpenCore)
 - [JINGYUE-B760I-SNOW-DREAM](/r/JINGYUE-B760I-SNOW-DREAM-OpenCore)
 - [JINGYUE-B760I-GAMING](/r/JINGYUE-B760I-GAMING-OpenCore)
 - [Jginyue-B760M-Snow-Dream](/r/Jginyue-B760M-Snow-Dream-OpenCore)
 
-![Lenovo/ThinkCentre](/_media/brands/lenovo.jpg ":size=180")
+![Lenovo/ThinkCentre](_media/brands/lenovo.jpg ":size=180")
 
 - [ThinkCentre-E77](/r/ThinkCentre-E77)
 - [Lenovo-QiTian-M437](/r/Lenovo-QiTian-M437)
 - [Lenovo-ThinkCentre-M730s](/r/Lenovo-ThinkCentre-M730s)
 - [Lenovo-IdeaCentre-AIO-YI-24ICB](/r/Lenovo-IdeaCentre-AIO-YI-24ICB-OpenCore)
-- [ThinkCentre-M70q](/r/ThinkCentre-M70q)
-- [ThinkCentre-M80q](/r/ThinkCentre-M80q)
 - [Lenovo-M710q](/r/Lenovo-M710q-OpenCore)
 - [lenovo-M650-M750t](/r/lenovo-M650-M750t-OpenCore)
 - [ThinkCentre-M930q](/r/ThinkCentre-M930q)
 - [ThinkCentre-M910s](/r/ThinkCentre-M910s)
 
-![MAXSUN](/_media/brands/maxsun.jpg ":size=180")
+![MAXSUN](_media/brands/maxsun.jpg ":size=180")
 
 - [MAXSUN-TERMINATOR-B760ITX-D4-WIFI](/r/MAXSUN-TERMINATOR-B760ITX-D4-WIFI-OpenCore)
 - [MAXSUN-TERMINATOR-B760M](/r/MAXSUN-TERMINATOR-B760M-OpenCore)
 - [Maxsun-Challenger-H610ITX](/r/Maxsun-Challenger-H610ITX-OpenCore)
 - [MAXSUN-B660M-TERMINATOR](/r/MAXSUN-B660M-TERMINATOR-OpenCore)
 
-![MSI](/_media/brands/msi.jpg ":size=180")
+![MSI](_media/brands/msi.jpg ":size=180")
 
 - [MSI-B85i](/r/MSI-B85i-OpenCore)
 - [MSI-MAG-B560M-MORTAR](/r/MSI-MAG-B560M-MORTAR-OpenCore)
@@ -106,7 +104,7 @@
 - [MAG-B760M-MORTAR](/r/MAG-B760M-MORTAR-OpenCore)
 - [MAG-B460M-MORTAR](/r/MAG-B460M-MORTAR-OpenCore)
 
-![Other](/_media/brands/other.jpg ":size=180")
+![Other](_media/brands/other.jpg ":size=180")
 
 - [TianBang-13900H-ES-ITX](/r/TianBang-13900H-ES-ITX-OpenCore)
 - [JUBO-H510-AIO](/r/JUBO-H510-AIO-OpenCore)
