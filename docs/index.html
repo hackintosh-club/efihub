@@ -180,8 +180,8 @@
             div.innerHTML =
               `<a href="${_repoURL}" title="${_repoPath}" target="_blank"><img src="${_github}"></a> ` +
               `<a href="${_repoURL}/releases" title="Latest EFI Release" target="_blank"><img src="${_release}"></a> ` +
-              `<span><img title="downloads" src="${_downloads}"></span> ` +
-              `<span><img title="stars" src="${_stars}"></span> `;
+              `<a href="${_repoURL}/releases" title="downloads" target="_blank"><img src="${_downloads}"></a> ` +
+              `<a href="${_repoURL}" title="stars" target="_blank"><img src="${_stars}"></a> `;
             main.insertBefore(div, main.childNodes[1]);
           });
         };
