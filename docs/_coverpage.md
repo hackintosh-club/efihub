@@ -15,4 +15,4 @@
 
 <!-- background color -->
 
-![color](#3f3f3f)
+![color](#14191f)
