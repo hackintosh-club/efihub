@@ -37,9 +37,9 @@
     <div id="app">404 Not Found</div>
     <script>
       (function () {
-        const uri = window.location.pathname;
-        if (uri.startsWith("/r/")) {
-          window.location.href = "/#" + uri;
+        const uri = new URL(window.location);
+        if (uri.pathname.startsWith("/r/")) {
+          window.location.href = "/#" + uri.pathname;
         }
       })();
     </script>
