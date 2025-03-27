@@ -29,18 +29,32 @@
       href="/_media/apple-touch-icon.png"
       sizes="180x180"
     />
-
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/_vendor/dark.min.css" />
     <style>
-      .sidebar {
-        background: linear-gradient(90deg, #2d3d4d, #14191f) !important;
-      }
       body {
         background-color: #14191f;
       }
+      .sidebar {
+        background: linear-gradient(90deg, #2d3d4d, #14191f) !important;
+      }
+      .sidebar-toggle:hover .sidebar-toggle-button {
+        opacity: 1;
+      }
       .sidebar-toggle {
         background-color: transparent;
+      }
+      @media screen and (max-width: 768px) {
+        body.close .sidebar-toggle {
+          background-color: transparent;
+        }
+      }
+      section.cover {
+        background: linear-gradient(
+          235deg,
+          #2d3d4d 0%,
+          #14191f 100%
+        ) !important;
       }
       .giscus {
         width: 100% !important;
@@ -52,87 +66,57 @@
         border: 0;
         min-height: 200px;
       }
-
-      section.cover {
-        background: linear-gradient(
-          235deg,
-          #2d3d4d 0%,
-          #14191f 100%
-        ) !important;
-      }
     </style>
   </head>
   <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="https://hackintosh.club" target="_blank">Hackintosh.Club</a>
-    </nav>
     <div id="app">
       <svg
-        width="24"
-        height="24"
-        stroke="#fff"
+        width="36"
+        height="36"
+        fill="#fff"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g>
-          <circle
-            cx="12"
-            cy="12"
-            r="9.5"
-            fill="none"
-            stroke-width="3"
-            stroke-linecap="round"
-          >
-            <animate
-              attributeName="stroke-dasharray"
-              dur="1.5s"
-              calcMode="spline"
-              values="0 150;42 150;42 150;42 150"
-              keyTimes="0;0.475;0.95;1"
-              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="stroke-dashoffset"
-              dur="1.5s"
-              calcMode="spline"
-              values="0;-16;-59;-59"
-              keyTimes="0;0.475;0.95;1"
-              keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
-              repeatCount="indefinite"
-            />
-          </circle>
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            dur="2s"
-            values="0 12 12;360 12 12"
-            repeatCount="indefinite"
-          />
-        </g>
+        <style>
+          .spinner {
+            transform-origin: center;
+            animation: spinner 1s linear infinite;
+          }
+          @keyframes spinner {
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        </style>
+        <path
+          d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+          opacity=".05"
+        />
+        <circle class="spinner" cx="12" cy="2.5" r="1.5" />
       </svg>
     </div>
     <script>
       const ORG = "hackintosh-club";
       const CDN = "https://cdn.jsdelivr.net/gh/" + ORG;
       window.$docsify = {
+        org: ORG,
         cdn: CDN,
         repo: "https://github.com/" + ORG,
         name: "<strong>EFIHub</strong>",
         alias: {
-          "/r/_sidebar.md": "/_sidebar.md",
+          "/(.*)/_navbar.md": "/_navbar.md",
+          "/(.*)/_sidebar.md": "/_sidebar.md",
           "/r/(.*)": CDN + "/$1/README.md",
         },
         // routerMode: "history",
         themeColor: "#F36322",
-        onlyCover: true,
+        onlyCover: false,
         coverpage: true,
+        auto2top: true,
         loadSidebar: true,
-        autoHeader: true,
+        loadNavbar: true,
         nativeEmoji: false,
         notFoundPage: false,
-
         // baiduTongjiID
         baiduTongjiID: "a693e3c9fd4518f70373708ae51ceb65",
         // giscus
@@ -151,15 +135,19 @@
           loading: "lazy",
         },
       };
-    </script>
-    <script src="/_vendor/docsify.min.js"></script>
-    <script>
+      // plugins
       (function () {
+        // disable index.html
+        if (new URL(window.location).pathname === atob("L2luZGV4Lmh0bWw=")) {
+          window.location.href = "/";
+          return;
+        }
+
         var repoID = function (vm) {
           return vm.route.path.replace("/r/", "");
         };
         var repoPath = function (vm) {
-          return ORG + "/" + repoID(vm);
+          return vm.config.org + "/" + repoID(vm);
         };
         var allowRoute = function (vm) {
           return vm.route.path.startsWith("/r");
@@ -327,6 +315,7 @@
         );
       })();
     </script>
+    <script src="/_vendor/docsify.min.js"></script>
     <script src="/_vendor/zoom-image.min.js"></script>
   </body>
 </html>
