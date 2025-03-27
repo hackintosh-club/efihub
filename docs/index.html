@@ -102,10 +102,10 @@
         org: ORG,
         cdn: CDN,
         repo: "https://github.com/" + ORG,
-        name: "<strong>EFIHub</strong>",
+        name: "<strong>Hackintosh OpenCore EFI</strong>",
         alias: {
-          "/r/_navbar.md": "/_navbar.md",
-          "/r/_sidebar.md": "/_sidebar.md",
+          "/(.*)/_navbar.md": "/_navbar.md",
+          "/(.*)/_sidebar.md": "/_sidebar.md",
           "/r/(.*)": CDN + "/$1/README.md",
         },
         // routerMode: "history",
