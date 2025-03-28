@@ -1,4 +1,4 @@
-# Hackintosh OpenCore EFI :id=efihub
+# Hackintosh OpenCore EFI :id=opencore-efi
 
 [ASRock/华擎](/asrock.md ":include")
 

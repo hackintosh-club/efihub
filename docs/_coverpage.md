@@ -7,4 +7,4 @@
 > Find your free OpenCore EFI here!
 
 [Github](https://github.com/hackintosh-club)
-[OpenCore EFI](#efihub)
+[OpenCore EFI](#opencore-efi)
