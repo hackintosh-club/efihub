@@ -1,4 +1,4 @@
-### ERYING / 尔英
+### ERYING/尔英 :id=erying
 
 [![ERYING](_media/brands/erying.jpg ":size=240")](/erying)
 

@@ -1,4 +1,4 @@
-### DELL / 戴尔
+### DELL/戴尔 :id=dell
 
 [![DELL](_media/brands/dell.jpg ":size=240")](/dell)
 

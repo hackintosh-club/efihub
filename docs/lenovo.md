@@ -1,4 +1,4 @@
-### LENOVO / 联想
+### LENOVO/联想 :id=lenovo
 
 [![Lenovo/ThinkCentre](_media/brands/lenovo.jpg ":size=240")](/lenovo)
 

@@ -1,4 +1,4 @@
-### HP / 惠普
+### HP/惠普 :id=hp
 
 [![HP](_media/brands/hp.jpg ":size=240")](/hp)
 

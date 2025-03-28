@@ -12,7 +12,7 @@ if echo "$response" | jq -e . >/dev/null 2>&1; then
     echo "# Hackintosh Club Repositories" >repos.md
     echo "" >>repos.md
 
-    echo "$response" | jq -r '.[] | "- [**\(.name)**](/r/\(.name) \"\(.description // "")\")"'
+    echo "$response" | jq -r '.[] | "- [**\(.name)**](/r/\(.name) \"\(.description // "")\")"' >>repos.md
 else
     echo "Failed to fetch data from GitHub API."
     exit 1

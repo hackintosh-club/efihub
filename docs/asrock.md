@@ -1,4 +1,4 @@
-### ASRock / 华擎
+### ASRock/华擎 :id=asrock
 
 [![ASRock](_media/brands/asrock.jpg ":size=240")](/asrock)
 

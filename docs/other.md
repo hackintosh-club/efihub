@@ -1,4 +1,4 @@
-### OTHER / 其他
+### OTHER/其他 :id=other
 
 [![Other](/_media/brands/other.jpg ":size=240")](/other)
 

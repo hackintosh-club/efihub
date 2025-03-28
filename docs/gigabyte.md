@@ -1,4 +1,4 @@
-### GIGABYTE / 技嘉
+### GIGABYTE/技嘉 :id=gigabyte
 
 [![GIGABYTE](_media/brands/gigabyte.jpg ":size=240")](/gigabyte)
 

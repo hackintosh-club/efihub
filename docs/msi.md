@@ -1,4 +1,4 @@
-### MSI / 微星
+### MSI/微星 :id=msi
 
 [![MSI](_media/brands/msi.jpg ":size=240")](/msi)
 

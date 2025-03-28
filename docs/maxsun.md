@@ -1,4 +1,4 @@
-### MAXSUN / 铭瑄
+### MAXSUN/铭瑄 :id=maxsun
 
 [![MAXSUN](_media/brands/maxsun.jpg ":size=240")](/maxsun)
 

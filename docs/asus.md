@@ -1,4 +1,4 @@
-### ASUS / 华硕
+### ASUS/华硕 :id=asus
 
 [![ASUS](_media/brands/asus.jpg ":size=240")](/asus)
 

@@ -1,4 +1,4 @@
-### JGINYUE / 精粤
+### JGINYUE/精粤 :id=jginyue
 
 [![JGINYUE](_media/brands/jginyue.jpg ":size=240")](/jginyue)
 

@@ -1,4 +1,4 @@
-### Intel / 英特尔
+### Intel/英特尔 :id=intel
 
 [![Intel](_media/brands/intel.jpg ":size=240")](/intel)
 
